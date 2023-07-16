@@ -118,8 +118,9 @@ main(int argc, char **argv)
   const char *frag_header = "#version 130\n\
 uniform vec2 iResolution;\n\
 uniform float iTime;\n\
+uniform int iFrame;\n\
 uniform vec2 iMouse;\n";
-  const char *frag_footer = "void main( void ) {\n\
+  const char *frag_footer = "\nvoid main( void ) {\n\
   vec4 fragColor;\n\
   mainImage(fragColor, gl_FragCoord.xy);\n\
   gl_FragColor = fragColor;\n\
@@ -141,10 +142,10 @@ uniform vec2 iMouse;\n";
   len = ftell(file);
   fseek(file, 0, SEEK_SET);
   
-  frag_shader = malloc(len + 189);
+  frag_shader = malloc(len + strlen(frag_header) + strlen(frag_footer));
   strcpy(frag_shader, frag_header);
   
-  if (fread(frag_shader + 81, len, 1, file) < 1)
+  if (fread(frag_shader + strlen(frag_header), len, 1, file) < 1)
   {
     printf("Problem loading file: %s\n", argv[1]);
     free (frag_shader);
@@ -152,7 +153,7 @@ uniform vec2 iMouse;\n";
   }
   fclose(file);
   
-  strcpy(frag_shader + len + 81, frag_footer);
+  strcpy(frag_shader + len + strlen(frag_header), frag_footer);
 
   CNFGSetup( "Shadertoy Example", 800, 600 );
   starttime = OGGetAbsoluteTime();
