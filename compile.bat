@@ -4,7 +4,7 @@ echo Also, if compiling with OpenGL, download http://download.savannah.nongnu.or
 echo Don't worry.  It includes the i386 compiler in the win64 build.
 
 set CFLAGS= -v -DHIDAPI -DWINDOWS -DWIN32 -DTCC -DRUNTIME_SYMNUM -O2 -Itccinc -DINCLUDING_EMBEDDED -rdynamic -g 
-set INCLUDES=-IC:/rawdraw -IC:/rawdraw/rawdraw -IC:/rawdraw/windows -Iinclude
+set INCLUDES=-Irawdraw -Iinclude
 set LDFLAGS=-lkernel32 -lole32 -lgdi32 -luser32 -lsetupapi -ldbghelp -lws2_32 -lAvrt -lopengl32
 
 set SOURCES=main.c
